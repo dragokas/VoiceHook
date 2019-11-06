@@ -30,14 +30,13 @@
 /** Enable interfaces you want to use here by uncommenting lines */
 #define SMEXT_ENABLE_FORWARDSYS
 //#define SMEXT_ENABLE_HANDLESYS
-#if SOURCE_ENGINE == SE_CSGO
-#define SMEXT_ENABLE_GAMEHELPERS
-#else
 #define SMEXT_ENABLE_PLAYERHELPERS
-#endif
 //#define SMEXT_ENABLE_DBMANAGER
 //#define SMEXT_ENABLE_GAMECONF
 //#define SMEXT_ENABLE_MEMUTILS
+#if SOURCE_ENGINE == SE_CSGO
+#define SMEXT_ENABLE_GAMEHELPERS
+#endif
 #define SMEXT_ENABLE_TIMERSYS
 //#define SMEXT_ENABLE_THREADER
 //#define SMEXT_ENABLE_LIBSYS
