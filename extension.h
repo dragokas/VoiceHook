@@ -7,13 +7,23 @@
  */
 
 #include "smsdk_ext.h"
+#if SOURCE_ENGINE != SE_CSGO
+#include <ISDKTools.h>
+#include <inetmsghandler.h>
+#include <iclient.h>
+#include <iserver.h>
+#endif
 
 /**
  * @brief Sample implementation of the SDK Extension.
  * Note: Uncomment one of the pre-defined virtual functions in order to use it.
  */
 
+#if SOURCE_ENGINE == SE_CSGO
 class VoiceHook : public SDKExtension
+#else
+class VoiceHook : public SDKExtension, public IClientListener
+#endif
 {
 public:
 	/**
@@ -50,6 +60,11 @@ public:
 	 * @return			True if working, false otherwise.
 	 */
 	//virtual bool QueryRunning(char *error, size_t maxlength);
+
+#if SOURCE_ENGINE != SE_CSGO
+	virtual void OnClientPutInServer(int client);
+	virtual void OnClientDisconnecting(int client);
+#endif
 public:
 #if defined SMEXT_CONF_METAMOD
 	/**
@@ -83,7 +98,14 @@ public:
 	 */
 	//virtual bool SDK_OnMetamodPauseChange(bool paused, char *error, size_t maxlength);
 #endif
+public:
+#if SOURCE_ENGINE == SE_CSGO
 	void ClientVoice(edict_t *pEntity);
+#else
+	bool ProcessVoiceData(CLC_VoiceData *msg);
+#endif
 };
+
+static cell_t IsClientSpeaking(IPluginContext *pContext, const cell_t *params);
 
 #endif // _INCLUDE_SOURCEMOD_EXTENSION_PROPER_H_
