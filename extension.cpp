@@ -112,9 +112,6 @@ void VoiceHook::ClientVoice(edict_t *pEntity)
 		int client = gamehelpers->IndexOfEdict(pEntity);
 		if (client)
 		{
-			g_OnClientSpeaking->PushCell(client);
-			g_OnClientSpeaking->Execute();
-
 			g_fGameTime[client] = gpGlobals->curtime;
 
 			if (g_pTimerSpeaking[client] == NULL)
@@ -124,6 +121,9 @@ void VoiceHook::ClientVoice(edict_t *pEntity)
 				g_OnClientSpeakingStart->PushCell(client);
 				g_OnClientSpeakingStart->Execute();
 			}
+
+			g_OnClientSpeaking->PushCell(client);
+			g_OnClientSpeaking->Execute();
 		}
 	}
 }
@@ -159,9 +159,6 @@ bool VoiceHook::ProcessVoiceData(CLC_VoiceData *msg)
 	{
 		int client = pClient->GetPlayerSlot() + 1;
 
-		g_OnClientSpeaking->PushCell(client);
-		g_OnClientSpeaking->Execute();
-
 		g_fGameTime[client] = gpGlobals->curtime;
 
 		if (g_pTimerSpeaking[client] == NULL)
@@ -171,6 +168,9 @@ bool VoiceHook::ProcessVoiceData(CLC_VoiceData *msg)
 			g_OnClientSpeakingStart->PushCell(client);
 			g_OnClientSpeakingStart->Execute();
 		}
+
+		g_OnClientSpeaking->PushCell(client);
+		g_OnClientSpeaking->Execute();
 	}
 	return true;
 }
