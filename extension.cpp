@@ -139,12 +139,6 @@ void VoiceHook::OnClientPutInServer(int client)
 
 void VoiceHook::OnClientDisconnecting(int client)
 {
-	if (g_pTimerSpeaking[client] != NULL)
-	{
-		timersys->KillTimer(g_pTimerSpeaking[client]);
-		g_pTimerSpeaking[client] = NULL;
-	}
-
 	IClient *pClient = g_pServer->GetClient(client-1);
 	if (pClient != NULL)
 	{
