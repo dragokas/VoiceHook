@@ -1,6 +1,6 @@
 # Makefile
 HX_SOURCEMOD = ../sourcemod
-HX_SDK = ../hl2sdk
+HX_SDK = ../hl2sdk-l4d2
 HX_METAMOD = ../mmsource
 #
 # voicehook.ext.so
